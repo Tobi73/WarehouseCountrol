@@ -1,0 +1,43 @@
+{
+  "name": "warehouse-control",
+  "version": "1.0.0",
+  "description": "Web application for controlling warehouse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf bin && babel src -d bin -s",
+    "start": "node ./bin/index.js",
+    "deploy": "npm run build && npm run start"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  },
+  "author": "Andrey Zaytsev",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "config3": "^1.0.3",
+    "ejs": "^2.5.7",
+    "express": "^4.15.5",
+    "mongoose": "^4.12.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}

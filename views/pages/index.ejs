@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>CMS Admin</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="static/css/all.css" >
+</link>
+</head>
+<body>
+<div id="main">
+  <div id="header"> <a href="#" class="logo"><img src="static/img/logo.gif" width="101" height="29" alt="" /></a>
+    <ul id="top-navigation">
+      <li class="active"><span><span>Главная</span></span></li>
+      <li><span><span><a href="#">Пользователи</a></span></span></li>
+      <li><span><span><a href="#">Товары</a></span></span></li>
+      <li><span><span><a href="#">Транзакции</a></span></span></li>
+    </ul>
+  </div>
+  <div id="middle">
+    <div id="left-column">
+      <h3>Меню</h3>
+      <ul class="nav">
+        <li><a href="#">Последние действия</a></li>
+      </ul>
+    </div>
+    <div id="center-column">
+      <div class="top-bar"> 
+        <form action ="product/add" method="post" name="productAdd">
+        <div class="one">Название продукта</div>
+        <div class="two">Количество продукта</div> <br>
+        <input class="one" type="text" name="productName" /> 
+        <input class="one" type"text" name="productQuantity" /> <br>
+        <input type="submit" value="Send" class="submitProduct" />
+        <div class="floatClear"></div>
+        </form>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script>
+        $("form").submit(function(e){
+          e.preventDefault();
+          console.log("ENTERED42342");
+          var productForm = document.forms["productAdd"];
+          var productName = productForm.elements["productName"].value;
+          var productQuantity = productForm.elements["productQuantity"].value;
+          $.ajax({
+            type: "POST",
+            url: "/product/add",
+            data: JSON.stringify({name: productName,
+                                  quantity: productQuantity}),
+            dataType: "json",
+            contentType: "application/json",
+            complete: function(data) {
+              console.log(data);
+              location.reload(true);
+            }
+          })
+        })
+        </script>
+      </div>
+      <br />
+      <div class="select-bar">
+        <label>
+        <input type="text" name="textfield" />
+        </label>
+        <label>
+        <input type="submit" name="Submit" value="Искать" />
+        </label>
+      </div>
+      <div class="table"> <img src="static/img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="static/img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
+        <table class="listing" cellpadding="0" cellspacing="0">
+          <tr>
+            <th class="first" width="177">Название товара</th>
+            <th class="last">Количество</th>
+          </tr>
+          <% products.forEach(function(product) {%>
+          <tr class="bg">
+            <td class="first style2"><%= product.name %></th>
+            <td class="last"><%= product.quantity %></th>
+          </tr>
+          <% }); %>
+        </table>
+        <div class="select"> <strong>Выбрать категорию: </strong>
+          <select>
+            <option>Овощи</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="right-column"> <strong class="h">Инструкция по использованию</strong>
+      <div class="box">Для сортировки товаров по типу выберите его категорию из списка</div>
+    </div>
+  </div>
+  <div id="footer"></div>
+</div>
+</body>
+</html>
