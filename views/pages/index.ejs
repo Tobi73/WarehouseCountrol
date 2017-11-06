@@ -3,13 +3,13 @@
 <head>
 <title>CMS Admin</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="static/css/all.css" >
+<link rel="stylesheet" href="/static/css/all.css" >
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </link>
 </head>
 <body>
 <div id="main">
-  <div id="header"> <a href="#" class="logo"><img src="static/img/logo.gif" width="101" height="29" alt="" /></a>
+  <div id="header"> <a href="#" class="logo"><img src="/static/img/logo.gif" width="101" height="29" alt="" /></a>
     <ul id="top-navigation">
       <li class="active"><span><span>Главная</span></span></li>
       <li><span><span><a href="#">Пользователи</a></span></span></li>
@@ -28,10 +28,11 @@
       <div class="top-bar"> 
         <form action ="product/add" method="post" name="productAdd" id="productAdd">
         <div class="one">Название продукта</div>
-        <div class="two">Количество продукта</div> <br>
-        <input class="one" type="text" name="productName" /> 
+        <input class="one" type="text" name="productName" /> <br>
+        <div class="one">Количество продукта</div>
         <input class="one" type"text" name="productQuantity" /> <br>
         <input type="submit" value="Send" class="submitProduct" />
+        <div class="error">Текст</div> <br>
         <div class="floatClear"></div>
         </form>
         <script>
@@ -47,8 +48,11 @@
                                   quantity: productQuantity}),
             dataType: "json",
             contentType: "application/json",
-            complete: function(data) {
+            success: function(data) {
               window.location.href = "/";
+            },
+            error: function(err) {
+              console.log(err);
             }
           })
         })
@@ -66,7 +70,6 @@
         </form>
         <script>
             $("#productSearch").submit(function(e){
-              console.log("Stepped");
               e.preventDefault();
               var productForm = document.forms["productSearch"];
               var productName = productForm.elements["productName"].value;
@@ -75,12 +78,16 @@
                 url: "/product/search",
                 data: JSON.stringify({name: productName}),
                 dataType: "json",
-                contentType: "application/json"
+                contentType: "application/json",
+                complete: function(data) {
+                    console.log(data.responseText);
+                    window.location.href = data.responseText;
+                }
               })
             })
             </script>
       </div>
-      <div class="table"> <img src="static/img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="static/img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
+      <div class="table"> <img src="/static/img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="/static/img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <table class="listing" cellpadding="0" cellspacing="0">
           <tr>
             <th class="first" width="177">Название товара</th>
@@ -93,11 +100,54 @@
           </tr>
           <% }); %>
         </table>
-        <div class="select"> <strong>Выбрать категорию: </strong>
-          <select>
-            <option>Овощи</option>
-          </select>
-        </div>
+        <!-- <div class="select"> <strong>Выбрать категорию: </strong> -->
+          <form name="productExport" id="productExport" method="GET" action="/product/export">
+            <label>
+            <input type="submit" value="Выгрузить в формате xlsx" />
+            </label>
+          </form>
+          <script>
+              $("#productExport").submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                  type: "GET",
+                  url: "/product/export",
+                  complete: function(data) {
+                    console.log(data);
+                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+                    var filename = "test";
+
+                    try {
+                          var blob = new Blob([data.responseText], { type: contentType });
+                          var downloadUrl = URL.createObjectURL(data.responseText);
+                          var a = document.createElement("a");
+                          a.href = downloadUrl;
+                          a.download = filename;
+                          document.body.appendChild(a);
+                          a.click();
+
+                    } catch (exc) {
+                          console.log("Save Blob method failed with the following exception.");
+                          console.log(exc);
+                    }
+
+
+                    // console.log(data);
+                    // var reader = new FileReader();
+                    // reader.onload = function(e) {
+                    //     $("a").attr({"href": e.target.result, "download":"filename"})
+                    //       .get().click()
+                    // } 
+                    // reader.readAsDataURL(new Blob([data]));
+                    // var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),
+                    //     u = URL.createObjectURL(blob);
+                    // console.log(blob);
+                  }
+                })
+              })
+          </script>
+        <!-- </div> -->
       </div>
     </div>
     <div id="right-column"> <strong class="h">Инструкция по использованию</strong>

@@ -31,22 +31,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 const app = (0, _express2.default)();
 
 const dirpath = _path2.default.join(__dirname, '..', 'public');
-console.log(dirpath);
 app.set('view engine', 'ejs');
 app.use('/static', _express2.default.static(dirpath));
 app.use(_bodyParser2.default.json());
 
 app.use('/product', _product2.default).get('/', (() => {
     var _ref = _asyncToGenerator(function* (req, res) {
-        var cursor = _mongoose2.default.model('Product');
-        var products = yield cursor.find({}).limit(20);
-        var viewModel = products.map(function (product) {
-            return {
-                name: product.name,
-                quantity: product.quantity
-            };
-        });
-        res.render('pages/index', { products: viewModel });
+        return res.redirect(`/product/search`);
     });
 
     return function (_x, _x2) {

@@ -31,8 +31,20 @@ select,
 .one, .two {
 	font-family:arial,sans-serif;
     border: 2px solid #FF7A00;
+    height: 100%;
+    width: 45%;
+	float: left;
+	vertical-align: middle;
+	text-align: center;
+	margin-bottom: 1%;
+	padding: 0.5%;
+	padding-left: 1%;
+}
+.error {
+	font-family:arial,sans-serif;
+    border: 0px solid #FF7A00;
     height: 80%;
-    width: 40%;
+    width: 100%;
 	float: left;
 	vertical-align: middle;
 	text-align: center;
@@ -47,7 +59,7 @@ select,
 	vertical-align: middle;
 	text-align: center;
 	background-color: transparent;
-	margin-bottom: 1%;
+	margin-bottom: 0.5%;
 }
 .productName, .productQuantity {
 	font-family:arial,sans-serif;
@@ -225,7 +237,8 @@ ul.nav li.last {background:none;}
 /* center column styles */
 .top-bar {
 	float:left;
-	width:603px;
+	/* width:603px; */
+	width: 100%;
 	border-left:2px solid #f70;
 	padding:0 0 0 9px;
 	margin:0 0 4px 0;

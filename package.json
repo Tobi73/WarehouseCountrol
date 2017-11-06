@@ -32,7 +32,8 @@
     "config3": "^1.0.3",
     "ejs": "^2.5.7",
     "express": "^4.15.5",
-    "mongoose": "^4.12.1"
+    "mongoose": "^4.12.1",
+    "xlsx-template": "^0.2.0"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

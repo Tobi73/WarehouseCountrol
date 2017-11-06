@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.search = exports.add = undefined;
+exports.all = exports.search = exports.add = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -36,6 +36,17 @@ const search = exports.search = (() => {
 
     return function search(_x2) {
         return _ref2.apply(this, arguments);
+    };
+})();
+
+const all = exports.all = (() => {
+    var _ref3 = _asyncToGenerator(function* (limit) {
+        const products = yield _schemas.Product.find({}).limit(20);
+        return products;
+    });
+
+    return function all(_x3) {
+        return _ref3.apply(this, arguments);
     };
 })();
 //# sourceMappingURL=product.js.map
