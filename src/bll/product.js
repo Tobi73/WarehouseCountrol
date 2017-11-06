@@ -5,3 +5,8 @@ export const add = async (body) => {
     const product = new Product({...body});
     await product.save();
 }
+
+export const search = async (name) => {
+    const products = await Product.find({'name': name});
+    return products;
+}

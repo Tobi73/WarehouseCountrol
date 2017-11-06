@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.add = undefined;
+exports.search = exports.add = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -25,6 +25,17 @@ const add = exports.add = (() => {
 
     return function add(_x) {
         return _ref.apply(this, arguments);
+    };
+})();
+
+const search = exports.search = (() => {
+    var _ref2 = _asyncToGenerator(function* (name) {
+        const products = yield _schemas.Product.find({ 'name': name });
+        return products;
+    });
+
+    return function search(_x2) {
+        return _ref2.apply(this, arguments);
     };
 })();
 //# sourceMappingURL=product.js.map

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf bin && babel src -d bin -s",
+    "build": "babel src -d bin -s",
     "start": "node ./bin/index.js",
     "deploy": "npm run build && npm run start"
   },

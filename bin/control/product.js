@@ -32,5 +32,21 @@ router.post('/add', (() => {
     };
 })());
 
+router.post('/search', (() => {
+    var _ref2 = _asyncToGenerator(function* (req, res, next) {
+        try {
+            const name = req.body.name;
+            const products = yield product.search(name);
+            res.render('pages/index', { products: products });
+        } catch (e) {
+            next(e);
+        }
+    });
+
+    return function (_x4, _x5, _x6) {
+        return _ref2.apply(this, arguments);
+    };
+})());
+
 exports.default = router;
 //# sourceMappingURL=product.js.map
